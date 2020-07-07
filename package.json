@@ -1,0 +1,32 @@
+{
+  "name": "tetris-game",
+  "version": "1.0.0",
+  "description": "A JavaScript game using the HTML5 canvas.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run clean && parcel public/index.html --out-dir dist -p 8080",
+    "build": "parcel build public/index.html --out-dir dist --public-url ./",
+    "clean": "rimraf -v dist/*",
+    "test": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cadhead/tetris-game.git"
+  },
+  "keywords": [],
+  "author": "cadhead <cadhe4d@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cadhead/tetris-game/issues"
+  },
+  "homepage": "https://github.com/cadhead/tetris-game#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/runtime-corejs2": "^7.10.4",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "parcel": "^1.12.4"
+  }
+}
