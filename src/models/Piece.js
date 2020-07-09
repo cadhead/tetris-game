@@ -1,4 +1,4 @@
-import pieces from '../config/pieces';
+import { pieces } from '../config/pieces';
 
 class Piece {
   pos = {
