@@ -72,6 +72,36 @@ class Piece implements Tetromino {
     this.x = x;
     this.y = y;
   }
+
+  private isOutOfBounds(playfield: number[][], x: number, y: number) {
+    return (
+      playfield[this.y + y] === undefined ||
+      playfield[this.y + y][this.x + x] === undefined
+    );
+  }
+
+  private hasCollision(playfield: number[][]): boolean {
+    for (let y = 0; y < this.blocks.length; y++) {
+      for (let x = 0; x < this.blocks[y].length; x++) {
+        if (this.isOutOfBounds(playfield, x, y)) {
+          return true;
+        }
+
+        if (playfield[this.y + y][this.x + x]) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  rotate(playfield: number[][]): void {
+    if (!playfield) return;
+    if (this.hasCollision(playfield)) return;
+
+    // ...
+  }
 }
 
 export default Piece;
