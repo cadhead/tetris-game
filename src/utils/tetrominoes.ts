@@ -3,28 +3,28 @@ const tetrominoesCollection = [
     type: 'I',
     color: '#9932CC',
     matrix: [
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-      [0, 1, 0, 0]
+      [0, 0, 0, 0],
+      [1, 1, 1, 1],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
     ]
   },
   {
     type: 'J',
     color: '#87CEEB',
     matrix: [
-      [0, 2, 0],
-      [0, 2, 0],
-      [2, 2, 0]
+      [2, 0, 0],
+      [2, 2, 2],
+      [0, 0, 0]
     ]
   },
   {
     type: 'L',
     color: '#4169E1',
     matrix: [
-      [0, 3, 0],
-      [0, 3, 0],
-      [0, 3, 3]
+      [0, 0, 3],
+      [3, 3, 3],
+      [0, 0, 0]
     ]
   },
   {
@@ -64,6 +64,6 @@ const tetrominoesCollection = [
       [0, 0, 0]
     ],
   }
-]
+];
 
 export default tetrominoesCollection;
