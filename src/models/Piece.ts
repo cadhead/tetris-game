@@ -131,33 +131,21 @@ class Piece implements Tetromino {
   }
 
   moveDown(playfield: number[][]): boolean {
-    if (!playfield || this.hasCollision(playfield)) { 
-      return false;
-    }
-
-    this.y += 1;
-
-    return true;
+    return this.changeBlocksState(playfield, () => {
+      this.y += 1;
+    });
   }
 
   moveLeft(playfield: number[][]): boolean {
-    if (!playfield || this.hasCollision(playfield)) { 
-      return false;
-    }
-
-    this.x -= 1;
-
-    return true;
+    return this.changeBlocksState(playfield, () => {
+      this.x -= 1;
+    });
   }
 
   moveRight(playfield: number[][]): boolean {
-    if (!playfield || this.hasCollision(playfield)) { 
-      return false;
-    }
-
-    this.x += 1;
-
-    return true;
+    return this.changeBlocksState(playfield, () => {
+      this.x += 1;
+    });
   }
 }
 
