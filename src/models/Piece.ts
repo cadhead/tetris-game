@@ -17,7 +17,7 @@ class Piece implements Tetromino {
     this.setInitialPosition();
   }
 
-  private getMatrixColumn(index: number): number[] {
+  private getBlockColumn(index: number): number[] {
     const column = [];
 
     for (const row of this.blocks) {
@@ -29,21 +29,21 @@ class Piece implements Tetromino {
     return column;
   }
 
-  private getMatrixSize() {
+  private getBlockSize() {
     return this.blocks.length - 1;
   }
 
   private calculateInitialPositionX(): number {
-    const matrixSize = this.getMatrixSize();
+    const matrixSize = this.getBlockSize();
 
-    const lastColumn = this.getMatrixColumn(matrixSize);
+    const lastColumn = this.getBlockColumn(matrixSize);
     const isLastColumnEmpty = lastColumn.every((block) => block === 0);
 
     return isLastColumnEmpty ? 4 : 3;
   }
 
   private calculateInitialPositionY(): number {
-    const matrixSize = this.getMatrixSize();
+    const matrixSize = this.getBlockSize();
 
     let ghostBlockIndex: number;
     let index = matrixSize;
