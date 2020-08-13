@@ -115,14 +115,19 @@ class Piece implements Tetromino {
     return rotatedBlocks;
   }
 
-  rotate(playfield: number[][]): boolean {
+  private changeBlocksState(playfield: number[][], callback: Function): boolean {
     if (!playfield || this.hasCollision(playfield)) { 
       return false;
     }
 
-    this.blocks = this.getBlocksRotated();
-
+    callback();
     return true;
+  }
+
+  rotate(playfield: number[][]): boolean {
+    return this.changeBlocksState(playfield, () => {
+      this.blocks = this.getBlocksRotated();
+    });
   }
 
   moveDown(playfield: number[][]): boolean {
