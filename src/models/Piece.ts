@@ -1,3 +1,5 @@
+import { createFilledArray } from '../utils/helpers';
+
 class Piece implements Tetromino {
   type: string;
 
@@ -29,12 +31,12 @@ class Piece implements Tetromino {
     return column;
   }
 
-  private getBlockSize() {
-    return this.blocks.length - 1;
+  private getBlocksSize() {
+    return this.blocks.length;
   }
 
   private calculateInitialPositionX(): number {
-    const matrixSize = this.getBlockSize();
+    const matrixSize = this.getBlocksSize();
 
     const lastColumn = this.getBlockColumn(matrixSize);
     const isLastColumnEmpty = lastColumn.every((block) => block === 0);
@@ -43,7 +45,7 @@ class Piece implements Tetromino {
   }
 
   private calculateInitialPositionY(): number {
-    const matrixSize = this.getBlockSize();
+    const matrixSize = this.getBlocksSize();
 
     let ghostBlockIndex: number;
     let index = matrixSize;
@@ -96,11 +98,61 @@ class Piece implements Tetromino {
     return false;
   }
 
-  rotate(playfield: number[][]): void {
-    if (!playfield) return;
-    if (this.hasCollision(playfield)) return;
+  private getBlocksRotated(): number[][] {
+    const rotatedBlocks = [];
+    const blocksSize = this.getBlocksSize();
 
-    // ...
+    for (let index = 0; index < blocksSize; index++) {
+      rotatedBlocks[index] = createFilledArray(blocksSize, 0);
+    }
+
+    for (let y = 0; y < blocksSize; y++) {
+      for (let x = 0; x < blocksSize; x++) {
+        rotatedBlocks[x][y] = this.blocks[blocksSize - 1 - y][x];
+      }
+    }
+
+    return rotatedBlocks;
+  }
+
+  rotate(playfield: number[][]): boolean {
+    if (!playfield || this.hasCollision(playfield)) { 
+      return false;
+    }
+
+    this.blocks = this.getBlocksRotated();
+
+    return true;
+  }
+
+  moveDown(playfield: number[][]): boolean {
+    if (!playfield || this.hasCollision(playfield)) { 
+      return false;
+    }
+
+    this.y += 1;
+
+    return true;
+  }
+
+  moveLeft(playfield: number[][]): boolean {
+    if (!playfield || this.hasCollision(playfield)) { 
+      return false;
+    }
+
+    this.x -= 1;
+
+    return true;
+  }
+
+  moveRight(playfield: number[][]): boolean {
+    if (!playfield || this.hasCollision(playfield)) { 
+      return false;
+    }
+
+    this.x += 1;
+
+    return true;
   }
 }
 
