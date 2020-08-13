@@ -3,7 +3,7 @@ class Piece implements Tetromino {
 
   color: string;
 
-  matrix: number[][];
+  blocks: number[][];
 
   x!: number;
 
@@ -12,7 +12,7 @@ class Piece implements Tetromino {
   constructor(tetromino: Tetromino) {
     this.type = tetromino.type;
     this.color = tetromino.color;
-    this.matrix = tetromino.matrix;
+    this.blocks = tetromino.blocks;
 
     this.setInitialPosition();
   }
@@ -20,7 +20,7 @@ class Piece implements Tetromino {
   private getMatrixColumn(index: number): number[] {
     const column = [];
 
-    for (const row of this.matrix) {
+    for (const row of this.blocks) {
       if (!row[index]) continue;
 
       column.push(row[index]);
@@ -30,7 +30,7 @@ class Piece implements Tetromino {
   }
 
   private getMatrixSize() {
-    return this.matrix.length - 1;
+    return this.blocks.length - 1;
   }
 
   private calculateInitialPositionX(): number {
@@ -48,7 +48,7 @@ class Piece implements Tetromino {
     let ghostBlockIndex: number;
     let index = matrixSize;
     
-    for (const row of this.matrix) {
+    for (const row of this.blocks) {
       index -= 1;
 
       if (row.every((block) => block === 0)) continue;

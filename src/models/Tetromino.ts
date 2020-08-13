@@ -3,5 +3,5 @@ interface Tetromino {
 
   color: string;
 
-  matrix: number[][];
+  blocks: number[][];
 }
