@@ -1,4 +1,4 @@
-class Piece {
+class Piece implements Tetromino {
   type: string;
 
   color: string;
