@@ -4,7 +4,7 @@ import { createMatrix, random } from '../utils/helpers';
 import tetrominoesCollection from '../utils/tetrominoes';
 
 class Tetris {
-  private playfield!: number[][];
+  private playfield: number[][] = createMatrix(20, 10);
 
   private activePiece!: Piece;
   private nextPiece!: Piece;
@@ -45,7 +45,6 @@ class Tetris {
   }
 
   private setup() {
-    this.playfield = createMatrix(20, 10);
     this.setActiveAndNextPieces();
   }
 
@@ -53,7 +52,7 @@ class Tetris {
     this.isPlayingState() ? this.pause() : this.start();
   }
 
-  start() {
+  start(): void {
     if (this.isPlayingState()) return;
 
     if (this.isOverState()) this.reset();
@@ -61,13 +60,16 @@ class Tetris {
     this.state = TetrisState.Playing;
   }
 
-  pause() {
+  pause(): void {
     if (!this.isPlayingState()) return;
 
     this.state = TetrisState.Pause;
   }
 
-  reset() {
+  reset(): void {
+    if (this.state === TetrisState.Ready) return;
+    if (this.state === TetrisState.Playing) this.pause();
+
     Object.assign(this, new Tetris());
   }
 }
