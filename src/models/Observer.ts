@@ -17,11 +17,13 @@ class Observer {
   }
 
   notifySubscribers(eventName: string, data?: unknown): void {
-    if (!this.subscribers[eventName]) return;
+    const subscribers = this.subscribers[eventName];
 
-    this.subscribers[eventName].forEach(
-      handler => handler(data)
-    );
+    if (!subscribers) return;
+
+    for (const handler of subscribers) {
+      handler(data);
+    }
   }
 }
 
