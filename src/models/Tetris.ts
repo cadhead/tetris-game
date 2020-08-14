@@ -11,7 +11,7 @@ class Tetris extends Observer {
 
   private playfield = createMatrix(this.rows, this.cols);
 
-  private activePiece!: Piece;
+  activePiece!: Piece;
   private nextPiece!: Piece;
 
   private state: TetrisState;
