@@ -29,7 +29,7 @@ class TetrisController {
 
     this.tetris.subscribe(
       TetrisEvents.PieceMoved,
-      this.playfield.updateActivePiecePosition
+      this.playfield.updateActivePiecePosition.bind(this.playfield)
     );
   }
 
