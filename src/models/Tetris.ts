@@ -1,9 +1,11 @@
+import Observer from './Observer';
 import Piece from './Piece';
 import { TetrisState } from '../utils/GameState';
+import { TetrisEvents } from '../utils/GameEvents';
 import { createMatrix, random } from '../utils/helpers';
 import tetrominoesCollection from '../utils/tetrominoes';
 
-class Tetris {
+class Tetris extends Observer {
   readonly rows = 20;
   readonly cols = 10;
 
@@ -15,6 +17,8 @@ class Tetris {
   private state: TetrisState;
 
   constructor() {
+    super();
+
     this.setup();
 
     this.state = TetrisState.Ready;
@@ -80,12 +84,14 @@ class Tetris {
     if (this.isOverState()) this.reset();
 
     this.state = TetrisState.Playing;
+    this.notifySubscribers(TetrisEvents.Started, this.nextPiece);
   }
 
   pause(): void {
     if (!this.isPlayingState()) return;
 
     this.state = TetrisState.Pause;
+    this.notifySubscribers(TetrisEvents.Paused);
   }
 
   reset(): void {
@@ -93,6 +99,22 @@ class Tetris {
     if (this.state === TetrisState.Playing) this.pause();
 
     Object.assign(this, new Tetris());
+  }
+
+  rotatePiece(): void {
+    if (this.state !== TetrisState.Playing) return;
+
+    const rotated = this.activePiece.rotate(this.playfield);
+
+    if (rotated) this.notifySubscribers(TetrisEvents.PieceRotated, this.activePiece);
+  }
+
+  movePieceDown(): void {
+    if (this.state !== TetrisState.Playing) return;
+
+    this.activePiece.moveDown(this.playfield)
+      ? this.notifySubscribers(TetrisEvents.PieceMoved, this.activePiece)
+      : this.lockPiece();
   }
 }
 
