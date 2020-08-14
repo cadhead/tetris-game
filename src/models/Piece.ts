@@ -38,27 +38,14 @@ class Piece implements Tetromino {
   private calculateInitialPositionX(): number {
     const matrixSize = this.getBlocksSize();
 
-    const lastColumn = this.getBlockColumn(matrixSize);
+    const lastColumn = this.getBlockColumn(matrixSize - 1);
     const isLastColumnEmpty = lastColumn.every((block) => block === 0);
 
-    return isLastColumnEmpty ? 4 : 3;
+    return isLastColumnEmpty ? 3 : 4;
   }
 
   private calculateInitialPositionY(): number {
-    const matrixSize = this.getBlocksSize();
-
-    let ghostBlockIndex: number;
-    let index = matrixSize;
-    
-    for (const row of this.blocks) {
-      index -= 1;
-
-      if (row.every((block) => block === 0)) continue;
-
-      ghostBlockIndex = index + 1;
-    }
-
-    return ghostBlockIndex;
+    return 0;
   }
 
   private getInitialPosition(): number[] {
