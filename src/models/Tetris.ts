@@ -4,7 +4,10 @@ import { createMatrix, random } from '../utils/helpers';
 import tetrominoesCollection from '../utils/tetrominoes';
 
 class Tetris {
-  private playfield: number[][] = createMatrix(20, 10);
+  readonly rows = 20;
+  readonly cols = 10;
+
+  private playfield = createMatrix(this.rows, this.cols);
 
   private activePiece!: Piece;
   private nextPiece!: Piece;
@@ -44,8 +47,27 @@ class Tetris {
     this.nextPiece = this.generatePiece();
   }
 
+  private updateActiveAndNextPieces() {
+    this.activePiece = this.nextPiece;
+    this.nextPiece = this.generatePiece();
+  }
+
   private setup() {
     this.setActiveAndNextPieces();
+  }
+
+  private lockPiece() {
+    const {x: pieceX, y: pieceY, blocks} = this.activePiece;
+
+    for (let y = 0; y < blocks.length; y++) {
+      for (let x = 0; x < blocks[y].length; x++) {
+        if (blocks[y][x]) {
+          this.playfield[pieceY + y][pieceX + x] = blocks[y][x];
+        }
+      }
+    }
+
+    this.updateActiveAndNextPieces();
   }
 
   togglePause() {
